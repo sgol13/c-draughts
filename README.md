@@ -1,2 +1,2 @@
 # c-draughts
-Draughts game in terminal. (2019)
+Draughts in terminal (in C, with XML files)

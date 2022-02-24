@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<manual>
+    <move>
+    MOVE
+
+    To move a piece from a3 to b4, type:
+
+            a3 b4      or      a3b4
+    </move>
+    
+    <errors>
+    ERRORS
+
+    If your move is incorrect, you may get the messeges below:
+
+    incorrect format - if your move is incorrectly formatted and the program cannot
+        understand what you actually want to do e. g.
+        -aa b7  (letter instead of the number)
+        -11 b3  (number instead of the letter)
+        -g11 m5 (out of the board)
+
+    invalid move - if your move breaks the rules of the game e. g.
+        -moves a piece one step forward
+        -does not capture when it is mandatory
+        -moves a piece that does not belong to you
+    </errors>
+    <exit>
+    SAVE AND EXIT
+
+    If you want to stop the game and continue it later, type 
+
+            exit        or      0
+
+    The game will be saved and you will return to the main menu.
+    You can continue your game by choosing 'load game' from the menu.   
+    </exit>
+</manual>
