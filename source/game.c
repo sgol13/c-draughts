@@ -9,16 +9,18 @@ void game(int game_size, bool new_game) {
 
     // CREATE GAME
     int board[12][12];
-    for (int y = 0; y < 12; y++)
-        for (int x = 0; x < 12; x++)
+    for (int y = 0; y < 12; y++) {
+        for (int x = 0; x < 12; x++) {
             board[x][y] = 0;
+        }
+    }
 
     int turn = 1;
     if (new_game) {
         initialGameSet(board, game_size);
-
-    } else
+    } else {
         loadGame(board, &game_size, &turn);
+    }
 
     char *top_pattern, *row_pattern;
     loadBoardPattern(game_size, &top_pattern, &row_pattern);
@@ -45,7 +47,7 @@ void game(int game_size, bool new_game) {
             if (result == 1) {
                 incorrect_format = true;
                 printf("\n\t%s", FORMAT_ERROR);
-                sleep(1.2);
+                sleep(1);
                 continue;
             }
             if (result == 2) {
@@ -62,11 +64,10 @@ void game(int game_size, bool new_game) {
                 break;
             }
 
-            if (!isPossible(board, turn, from_x, from_y, to_x, to_y, pr_x, pr_y,
-                            game_size)) {
+            if (!isPossible(board, turn, from_x, from_y, to_x, to_y, pr_x, pr_y)) {
                 impossible_move = true;
                 printf("\n\t%s", MOVE_ERROR);
-                sleep(1.2);
+                sleep(1);
                 continue;
             }
 
@@ -152,8 +153,8 @@ void saveGame(int board[12][12], int game_size, int turn) {
     root_el = xmlNewChild(root_el, NULL, BAD_CAST "pieces", BAD_CAST "");
 
     int counter = 1;
-    for (int y = 1; y <= game_size; y++)
-        for (int x = 1; x <= game_size; x++)
+    for (int y = 1; y <= game_size; y++) {
+        for (int x = 1; x <= game_size; x++) {
             if (board[x][y]) {
                 char piece[10], name[10];
 
@@ -161,6 +162,8 @@ void saveGame(int board[12][12], int game_size, int turn) {
                 snprintf(name, 10, "piece_%d", counter++);
                 xmlNewChild(root_el, NULL, BAD_CAST name, BAD_CAST piece);
             }
+        }
+    }
 
     xmlSaveFormatFileEnc(SAVE_FILENAME, save, "UTF-8", 1);
     xmlFreeDoc(save);
@@ -168,23 +171,25 @@ void saveGame(int board[12][12], int game_size, int turn) {
 }
 
 void loadGame(int board[12][12], int *game_size, int *turn) {
+
     xmlDoc *save = xmlReadFile(SAVE_FILENAME, NULL, 0);
     xmlNode *root_el = xmlDocGetRootElement(save);
     char *read;
 
     root_el = root_el->children->next;
-    read = xmlNodeGetContent(root_el);
+    read = (char *)xmlNodeGetContent(root_el);
     *game_size = atoi(read);
 
     root_el = root_el->next->next;
-    read = xmlNodeGetContent(root_el);
+    read = (char *)xmlNodeGetContent(root_el);
     *turn = atoi(read);
 
     root_el = root_el->next->next->children;
 
     while (root_el) {
         if (root_el->type == XML_ELEMENT_NODE) {
-            read = xmlNodeGetContent(root_el);
+
+            read = (char *)xmlNodeGetContent(root_el);
 
             int player = atoi(read);
             int x = atoi(read + 1);
@@ -201,18 +206,23 @@ void loadGame(int board[12][12], int *game_size, int *turn) {
     xmlCleanupParser();
 }
 
-bool isPossible(int board[12][12], int turn, int from_x, int from_y, int to_x, int to_y,
-                int pr_x, int pr_y, int game_size) {
+bool isPossible(int board[12][12], int turn, int from_x, int from_y, int to_x,
+                int to_y, int pr_x, int pr_y) {
+
     // it's not our piece
-    if (!isSame(board[from_x][from_y], turn))
+    if (!isSame(board[from_x][from_y], turn)) {
         return 0;
+    }
+
     // destination is occupied
-    if (board[to_x][to_y])
+    if (board[to_x][to_y]) {
         return 0;
+    }
 
     // not first move
-    if ((pr_x || pr_y) && (pr_x != from_x || pr_y != from_y))
+    if ((pr_x || pr_y) && (pr_x != from_x || pr_y != from_y)) {
         return 0;
+    }
 
     // NORMAL PIECE
     if (board[from_x][from_y] == turn) {
@@ -359,16 +369,20 @@ bool checkCapture(int board[12][12], int x, int y, int turn, int game_size) {
         bool down = (y - 2 >= 1);
         bool left = (x - 2 >= 1);
 
-        if (isOpposite(board[x + 1][y + 1], turn) && up && right && !board[x + 2][y + 2])
+        if (isOpposite(board[x + 1][y + 1], turn) && up && right &&
+            !board[x + 2][y + 2])
             return 1;
 
-        if (isOpposite(board[x + 1][y - 1], turn) && down && right && !board[x + 2][y - 2])
+        if (isOpposite(board[x + 1][y - 1], turn) && down && right &&
+            !board[x + 2][y - 2])
             return 1;
 
-        if (isOpposite(board[x - 1][y - 1], turn) && down && left && !board[x - 2][y - 2])
+        if (isOpposite(board[x - 1][y - 1], turn) && down && left &&
+            !board[x - 2][y - 2])
             return 1;
 
-        if (isOpposite(board[x - 1][y + 1], turn) && up && left && !board[x - 2][y + 2])
+        if (isOpposite(board[x - 1][y + 1], turn) && up && left &&
+            !board[x - 2][y + 2])
             return 1;
 
     } else if (board[x][y] == turn + 2) {

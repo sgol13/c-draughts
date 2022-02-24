@@ -15,8 +15,8 @@ void saveGame(int board[12][12], int game_size, int turn);
 
 void loadGame(int board[12][12], int *game_size, int *turn);
 
-bool isPossible(int board[12][12], int turn, int from_x, int from_y, int to_x, int to_y,
-                int pr_x, int pr_y, int game_size);
+bool isPossible(int board[12][12], int turn, int from_x, int from_y, int to_x,
+                int to_y, int pr_x, int pr_y);
 
 int countPieces(int board[12][12], int player, int game_size);
 

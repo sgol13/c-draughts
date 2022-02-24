@@ -2,6 +2,7 @@ cmake_minimum_required(VERSION 3.10.2)
 
 project(c-draughts)
 
+set(CMAKE_C_FLAGS "-Wall -Wconversion -Wextra -Wshadow -Werror -g")
 add_definitions(-DRESOURCES_DIR="../resources/")
 
 find_package(LibXml2 REQUIRED)

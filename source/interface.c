@@ -44,6 +44,7 @@ void printEndGame(int turn) {
         setColor(player_B_color);
         printf("\n\tPlayer red won!\n\n");
     }
+
     setColor(NULL);
     sleep(3);
     remove(SAVE_FILENAME);
@@ -123,36 +124,37 @@ void loadBoardPattern(int game_size, char **top_pattern, char **row_pattern) {
 
     if (game_size == 10) {
         root_el = root_el->children->next->children->next;
-        top_pattern_xml = xmlNodeGetContent(root_el);
-        row_pattern_xml = xmlNodeGetContent(root_el->next->next);
+        top_pattern_xml = (char *)xmlNodeGetContent(root_el);
+        row_pattern_xml = (char *)xmlNodeGetContent(root_el->next->next);
 
     } else if (game_size) {
         root_el = root_el->children->next->next->next->children->next;
-        top_pattern_xml = xmlNodeGetContent(root_el);
-        row_pattern_xml = xmlNodeGetContent(root_el->next->next);
+        top_pattern_xml = (char *)xmlNodeGetContent(root_el);
+        row_pattern_xml = (char *)xmlNodeGetContent(root_el->next->next);
     }
 
     int p = 0, r = 0;
     while (top_pattern_xml[p + 1])
         ++p;
 
-    *top_pattern = malloc((p + 2) * sizeof(char));
+    *top_pattern = malloc((unsigned long)(p + 2) * sizeof(char));
 
     while (top_pattern_xml[p] == ' ' || top_pattern_xml[p] == '\n' ||
-           top_pattern_xml[p] == '\t')
+           top_pattern_xml[p] == '\t') {
         top_pattern_xml[p--] = 'E';
+    }
 
     strcpy(*top_pattern, top_pattern_xml);
 
     while (row_pattern_xml[r + 1])
         ++r;
 
-    *row_pattern = malloc((r + 2) * sizeof(char));
+    *row_pattern = malloc((unsigned long)(r + 2) * sizeof(char));
 
     while (row_pattern_xml[r] == ' ' || row_pattern_xml[r] == '\n' ||
-           row_pattern_xml[r] == '\t')
+           row_pattern_xml[r] == '\t') {
         row_pattern_xml[r--] = 'E';
-
+    }
 
     strcpy(*row_pattern, row_pattern_xml);
 
@@ -163,6 +165,7 @@ void loadBoardPattern(int game_size, char **top_pattern, char **row_pattern) {
 }
 
 int readInput(int *from_x, int *from_y, int *to_x, int *to_y, int game_size) {
+
     size_t input_size = INPUT_STRING_MAX_SIZE;
     char *input = malloc(input_size * sizeof(char));
 
