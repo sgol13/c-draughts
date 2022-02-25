@@ -13,8 +13,8 @@
 
     If your move is incorrect, you may get the messeges below:
 
-    incorrect format - if your move is incorrectly formatted and the program cannot
-        understand what you actually want to do e. g.
+    incorrect format - if your move is incorrectly formatted and the 
+        program cannot understand what you actually want to do e. g.
         -aa b7  (letter instead of the number)
         -11 b3  (number instead of the letter)
         -g11 m5 (out of the board)

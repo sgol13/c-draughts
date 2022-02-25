@@ -56,4 +56,4 @@ dkms.conf
 build/
 .vscode/
 project/
-res/save.xml
+resources/save.xml
