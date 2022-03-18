@@ -1,5 +1,5 @@
 # Draughts
-This is my implementation of a draughts game in C which allows two users to play against each other. The programs has no GUI and displays a game board in terminal. I've used [libxml2](http://xmlsoft.org/) for parsing XML files and CMake for project compilation. In the video below you can see an exemplary gameplay.
+This is my implementation of a draughts game in C which allows two users to play against each other. The program has no GUI and displays a game board in terminal. I've used [libxml2](http://xmlsoft.org/) for parsing XML files and CMake for project compilation. In the video below you can see an exemplary gameplay.
 
 <a href="https://youtu.be/hERW3JtGsnE">
          <img alt="Draughts video" src="https://i.postimg.cc/cJQb2Pny/play-screen.png" width="500">
